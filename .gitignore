@@ -1,0 +1,29 @@
+# Python 
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Build / Packaging
+*.egg-info/
+Artifacts/
+logs/
+*.log
+venv/
+__pycache__/
+# ML / Data
+*.pkl
+*.csv
+*.json
+*.zip
+*.bin
+*.mp4
+
+# MLflow
+mlruns/
+
+# Ignore large generated files
+*.h5
+*.pt
+*.onnx
+*.joblib
