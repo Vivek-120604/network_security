@@ -9,3 +9,7 @@ scipy==1.11.4
 dill
 mlflow
 pyyaml==6.0.1
+dagshub
+fastapi
+uvicorn
+python-multipart

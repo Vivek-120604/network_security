@@ -2,10 +2,10 @@ import os
 import sys
 
 import mlflow
-
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
-
+import dagshub
+dagshub.init(repo_owner='Vivek-120604', repo_name='network_security', mlflow=True)
 from networksecurity.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact
 from networksecurity.entity.config_entity import ModelTrainerConfig
 
@@ -46,7 +46,10 @@ class ModelTrainer:
             mlflow.log_metric("f1_score", f1_score)
             mlflow.log_metric("precision", precision)
             mlflow.log_metric("recall", recall)
-            mlflow.sklearn.log_model(model, "model")
+            try:
+                mlflow.sklearn.log_model(model, name="model")
+            except Exception as e:
+                logging.warning(f"Failed to log model to MLflow: {e}")
                
 
     def train_model(self, X_train, y_train, X_test, y_test) -> ModelTrainerArtifact:
@@ -93,7 +96,8 @@ class ModelTrainer:
             trained_model_dir = os.path.dirname(self.model_trainer_config.trained_model_file_path)
             if trained_model_dir and not os.path.exists(trained_model_dir):
                 os.makedirs(trained_model_dir, exist_ok=True)
-            save_object(self.model_trainer_config.trained_model_file_path, best_model)
+            save_object(self.model_trainer_config.trained_model_file_path, obj = NetworkModel)
+            save_object("final_model/model.pkl", best_model)
 
             y_train_pred = best_model.predict(X_train)
             classification_train_metric = get_classification_score(y_true=y_train, y_pred=y_train_pred)
