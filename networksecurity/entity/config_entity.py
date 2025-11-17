@@ -13,7 +13,8 @@ class TrainingPipelineConfig:
         self.pipeline_name = training_pipelines.PIPELINE_NAME                     
         
         self.artifact_name = training_pipelines.ARTIFACT_DIR
-        self.artifact_dir = os.path.join(self.artifact_name, timestamp)             
+        self.artifact_dir = os.path.join(self.artifact_name, timestamp)  
+        self.model_dir =os.path.join("final_model")           
         self.timestamp:str = timestamp  
         
         
