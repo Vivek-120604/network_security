@@ -55,7 +55,7 @@ jobs:
          # push it to ECR so that it can 
          # be deployed to ECR
   Continuous-Deployment:
-    needs: build-and-deploy-ecr-image
+    needs: Build-and-Push-ECR-Image
     runs-on: self-hosted
     steps:
       - name: Checlout
